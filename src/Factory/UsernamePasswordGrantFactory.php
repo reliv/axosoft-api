@@ -36,11 +36,11 @@ class UsernamePasswordGrantFactory implements FactoryInterface
         $configRoot = $serviceLocator->get('Config');
 
         $apiRequest = new ApiRequest();
-        $apiRequest->setUsername($configRoot['AxosoftApi']['UsernamePasswordGrant']['username']);
-        $apiRequest->setPassword($configRoot['AxosoftApi']['UsernamePasswordGrant']['password']);
-        $apiRequest->setClientId($configRoot['AxosoftApi']['UsernamePasswordGrant']['clientId']);
-        $apiRequest->setClientSecret($configRoot['AxosoftApi']['UsernamePasswordGrant']['clientSecret']);
-        $apiRequest->setScope($configRoot['AxosoftApi']['UsernamePasswordGrant']['scope']);
+        $apiRequest->setUsername($configRoot['Reliv\AxosoftApi']['UsernamePasswordGrant']['username']);
+        $apiRequest->setPassword($configRoot['Reliv\AxosoftApi']['UsernamePasswordGrant']['password']);
+        $apiRequest->setClientId($configRoot['Reliv\AxosoftApi']['UsernamePasswordGrant']['clientId']);
+        $apiRequest->setClientSecret($configRoot['Reliv\AxosoftApi']['UsernamePasswordGrant']['clientSecret']);
+        $apiRequest->setScope($configRoot['Reliv\AxosoftApi']['UsernamePasswordGrant']['scope']);
 
         return $apiRequest;
     }

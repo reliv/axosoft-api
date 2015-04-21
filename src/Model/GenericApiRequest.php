@@ -25,7 +25,7 @@ class GenericApiRequest extends AbstractApiRequest
     /**
      * @var string
      */
-    protected $url;
+    protected $requestUrl;
 
     /**
      * @var string
@@ -48,15 +48,17 @@ class GenericApiRequest extends AbstractApiRequest
     protected $validator = null;
 
     /**
-     * @param $url
-     * @param $properties
-     * @param $parameters
+     * @param string $requestUrl
+     * @param string $requestMethod
+     * @param array  $properties
+     * @param array  $parameters
      */
-    public function __construct($url, $properties = [], $parameters = [])
+    public function __construct($requestUrl, $requestMethod = 'GET', $properties = [], $parameters = [])
     {
-        $this->url = $url;
-        $this->properties = $properties;
-        $this->parameters = $parameters;
+        $this->requestUrl = (string)$requestUrl;
+        $this->requestMethod = (string)$requestMethod;
+        $this->requestData = (array)$properties;
+        $this->requestParameters = (array)$parameters;
     }
 
     /**
@@ -73,14 +75,14 @@ class GenericApiRequest extends AbstractApiRequest
     }
 
     /**
-     * setParameter
+     * setRequestParameter
      *
      * @param $name
      * @param $value
      *
      * @return void
      */
-    public function setParameter($name, $value)
+    public function setRequestParameter($name, $value)
     {
         $this->requestParameters[$name] = $value;
     }
@@ -151,15 +153,5 @@ class GenericApiRequest extends AbstractApiRequest
         }
 
         return true;
-    }
-
-    /**
-     * jsonSerialize
-     *
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return $this->getRequestData();
     }
 }

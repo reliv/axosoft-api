@@ -2,6 +2,8 @@
 
 namespace Reliv\AxosoftApi\Model;
 
+use Reliv\AxosoftApi\ModelInterface\ApiResponse;
+
 /**
  * Class AbstractApiResponse
  *
@@ -18,7 +20,7 @@ namespace Reliv\AxosoftApi\Model;
  * @link      https://github.com/reliv
  */
 
-abstract class AbstractApiResponse
+abstract class AbstractApiResponse implements ApiResponse
 {
     /**
      * @var array
@@ -57,9 +59,9 @@ abstract class AbstractApiResponse
      */
     public function getResponseProperty($name, $default = null)
     {
-        if (isset($this->requestData[$name])) {
+        if (isset($this->responseData[$name])) {
 
-            return $this->requestData[$name];
+            return $this->responseData[$name];
         }
 
         return $default;
