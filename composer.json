@@ -25,10 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Reliv\\AxosoftApi": "src/"
-    },
-    "classmap": [
-      "./"
-    ]
+      "Reliv\\AxosoftApi\\": "src/"
+    }
   }
 }
