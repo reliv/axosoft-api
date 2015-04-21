@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Reliv\AxosoftApi\Model;
+namespace Reliv\AxosoftApi\ModelInterface;
 
 
- /**
- * Class ApiRequestInterface
+/**
+ * Interface ApiRequest
  *
- * LongDescHere
+ * ApiRequest
  *
  * PHP version 5
  *
@@ -20,14 +20,15 @@ namespace Reliv\AxosoftApi\Model;
  * @link      https://github.com/reliv
  */
 
-interface ApiRequestInterface extends \JsonSerializable {
+interface ApiRequest
+{
 
     /**
-     * Get URL formatted per API request requirements
+     * Get Request URL formatted per API request requirements
      *
      * @return string
      */
-    public function getUrl();
+    public function getRequestUrl();
 
     /**
      * getRequestMethod
@@ -44,6 +45,33 @@ interface ApiRequestInterface extends \JsonSerializable {
     public function getRequestData();
 
     /**
+     * getRequestParameter
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function setRequestParameter($name, $value);
+
+    /**
+     * getRequestParameters
+     *
+     * @return array
+     */
+    public function getRequestParameters();
+
+    /**
+     * setRequestHeader
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function setRequestHeader($name, $value);
+
+    /**
      * getRequestHeaders
      *
      * @return array
@@ -55,7 +83,7 @@ interface ApiRequestInterface extends \JsonSerializable {
      *
      * @param $responseData
      *
-     * @return AbstractApiResponse
+     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
      */
     public function getResponse($responseData);
 

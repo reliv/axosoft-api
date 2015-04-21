@@ -35,9 +35,9 @@ class AxosoftApiServiceFactory implements FactoryInterface
     {
         $configRoot = $serviceLocator->get('Config');
 
-        $httpClient = $serviceLocator->get('AxosoftApi\Service\HttpClient');
+        $httpClient = $serviceLocator->get('Reliv\AxosoftApi\Service\HttpClient');
 
-        $authRequest = $serviceLocator->get('AxosoftApi\Grant\ApiRequest');
+        $authRequest = $serviceLocator->get('Reliv\AxosoftApi\Grant\ApiRequest');
 
         return new AxosoftApi($httpClient, $authRequest);
     }

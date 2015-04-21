@@ -35,7 +35,7 @@ class GuzzleHttpClientFactory implements FactoryInterface
         $configRoot = $serviceLocator->get('Config');
 
         return new Client(
-            $configRoot['AxosoftApi']['Connection']
+            $configRoot['Reliv\AxosoftApi']['Connection']
         );
     }
 }

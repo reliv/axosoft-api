@@ -22,6 +22,15 @@ namespace Reliv\AxosoftApi\Model;
 
 class GenericApiError extends AbstractApiError
 {
+
+    /**
+     * @param $responseData
+     */
+    public function __construct($responseData)
+    {
+        $this->setResponseData($responseData);
+    }
+
     /**
      * getError
      *

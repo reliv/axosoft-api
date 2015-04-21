@@ -3,6 +3,8 @@
 
 namespace Reliv\AxosoftApi\Model;
 
+use Reliv\AxosoftApi\ModelInterface\ApiRequest;
+
 
 /**
  * Abstract Class AbstractApiRequest
@@ -20,12 +22,12 @@ namespace Reliv\AxosoftApi\Model;
  * @link      https://github.com/reliv
  */
 
-abstract class AbstractApiRequest implements ApiRequestInterface
+abstract class AbstractApiRequest implements ApiRequest
 {
     /**
      * @var string
      */
-    protected $url;
+    protected $requestUrl;
 
     /**
      * @var string
@@ -48,18 +50,18 @@ abstract class AbstractApiRequest implements ApiRequestInterface
     protected $requestHeaders = [];
 
     /**
-     * getUrl
+     * getRequestUrl
      *
      * @return string
      * @throws \Exception
      */
-    public function getUrl()
+    public function getRequestUrl()
     {
-        if (empty($this->url)) {
-            throw new \Exception('URL has not been set for ' . get_class($this));
+        if (empty($this->requestUrl)) {
+            throw new \Exception('Request Url has not been set for ' . get_class($this));
         }
 
-        $url = $this->url;
+        $url = $this->requestUrl;
 
         if(!empty($this->requestParameters)){
             $url = $url . '?' . $this->buildQueryString();
@@ -109,6 +111,20 @@ abstract class AbstractApiRequest implements ApiRequestInterface
     }
 
     /**
+     * getRequestParameter
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function setRequestParameter($name, $value)
+    {
+        $name = (string) $name;
+        $this->requestParameters[$name] = (string) $value;
+    }
+
+    /**
      * getRequestParameters
      *
      * @return array
@@ -134,6 +150,20 @@ abstract class AbstractApiRequest implements ApiRequestInterface
         }
 
         return $default;
+    }
+
+    /**
+     * setRequestHeader
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function setRequestHeader($name, $value)
+    {
+        $name = (string) $name;
+        $this->requestHeaders[$name] = (string) $value;
     }
 
     /**
@@ -177,17 +207,5 @@ abstract class AbstractApiRequest implements ApiRequestInterface
     public function isValid()
     {
         return true;
-    }
-
-    /**
-     * Specify data which should be serialized to JSON
-     *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     *       which is a value of any type other than a resource.
-     */
-    public function jsonSerialize()
-    {
-        return $this->getRequestData();
     }
 }

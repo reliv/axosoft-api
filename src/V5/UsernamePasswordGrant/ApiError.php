@@ -3,13 +3,13 @@
 
 namespace Reliv\AxosoftApi\V5\UsernamePasswordGrant;
 
-use Reliv\AxosoftApi\Model\AbstractApiError;
+use Reliv\AxosoftApi\Model\GenericApiError;
 
 
 /**
  * Class ApiError
  *
- * LongDescHere
+ * ApiError
  *
  * PHP version 5
  *
@@ -21,15 +21,6 @@ use Reliv\AxosoftApi\Model\AbstractApiError;
  * @version   Release: <package_version>
  * @link      https://github.com/reliv
  */
-class ApiError extends AbstractApiError
+class ApiError extends GenericApiError
 {
-    /**
-     * getMessage
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->responseData['error_description'];
-    }
 }

@@ -3,6 +3,8 @@
 
 namespace Reliv\AxosoftApi\Model;
 
+use Reliv\AxosoftApi\ModelInterface\ApiError;
+
 
 /**
  * Class AbstractApiError
@@ -19,7 +21,7 @@ namespace Reliv\AxosoftApi\Model;
  * @version   Release: <package_version>
  * @link      https://github.com/reliv
  */
-class AbstractApiError extends AbstractApiResponse
+class AbstractApiError extends AbstractApiResponse implements ApiError
 {
     /**
      * getMessage

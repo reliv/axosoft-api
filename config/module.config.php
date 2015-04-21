@@ -1,6 +1,6 @@
 <?php
 return [
-    'AxosoftApi' => [
+    'Reliv\AxosoftApi' => [
         'Connection' => [
             'base_url' => 'https://mysubdomain.axosoft.com',
         ],

@@ -26,9 +26,4 @@ class GenericApiResponse extends AbstractApiResponse
     {
         $this->setResponseData($responseData);
     }
-
-    /**
-     * @var array
-     */
-    protected $responseData = [];
 }

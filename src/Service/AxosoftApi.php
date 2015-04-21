@@ -2,17 +2,17 @@
 
 namespace Reliv\AxosoftApi\Service;
 
-use Reliv\AxosoftApi\Model\AbstractApiError;
-use Reliv\AxosoftApi\Model\ApiRequestInterface;
-use Reliv\AxosoftApi\Model\Connection;
-use Reliv\AxosoftApi\V5\UsernamePasswordGrant\ApiError;
-use Reliv\AxosoftApi\V5\UsernamePasswordGrant\ApiResponse;
-use Guzzle\Http\Client;
+use Reliv\AxosoftApi\Model\AbstractApiRequest;
+use Reliv\AxosoftApi\Model\GenericApiRequest;
+use Reliv\AxosoftApi\ModelInterface\ApiAccessResponse;
+use Reliv\AxosoftApi\ModelInterface\ApiError;
+use Reliv\AxosoftApi\ModelInterface\ApiRequest;
+use Reliv\AxosoftApi\ModelInterface\ApiResponse;
 
 /**
  * Class AxosoftApi
  *
- * LongDescHere
+ * AxosoftApi Service Facade
  *
  * PHP version 5
  *
@@ -27,19 +27,29 @@ use Guzzle\Http\Client;
 class AxosoftApi
 {
     /**
-     * @var
+     * @var \Reliv\AxosoftApi\ModelInterface\ApiRequest
      */
     protected $authRequest;
 
     /**
-     * @var null
+     * @var \GuzzleHttp\Client
      */
     protected $httpClient;
 
     /**
-     * @var null
+     * @var null|string
      */
     protected $accessToken = null;
+
+    /**
+     * @var array
+     */
+    protected $methodMap
+        = [
+            'POST' => 'post',
+            'GET' => 'get',
+            'DELETE' => 'delete'
+        ];
 
     /**
      * @param $httpClient
@@ -62,13 +72,17 @@ class AxosoftApi
     public function getAccessToken($refresh = false)
     {
         if (empty($this->accessToken) || $refresh) {
+
+            $this->accessToken = null;
+
             $response = $this->get($this->authRequest);
 
-            if ($response instanceof AbstractApiError) {
+            if ($response instanceof ApiError) {
                 //throw new \Exception('Authorization failed');
                 $this->accessToken = null;
             }
-            if ($response instanceof ApiResponse) {
+
+            if ($response instanceof ApiAccessResponse) {
                 $this->accessToken = $response->getAccessToken();
             }
         }
@@ -79,12 +93,13 @@ class AxosoftApi
     /**
      * send
      *
-     * @param ApiRequestInterface $apiRequest
+     * @param ApiRequest $apiRequest
+     * @param bool       $refreshAccess
      *
      * @return mixed
      * @throws \Exception
      */
-    public function send(ApiRequestInterface $apiRequest, $refreshAccess = false)
+    public function send(ApiRequest $apiRequest, $refreshAccess = false)
     {
         $accessToken = $this->getAccessToken($refreshAccess);
 
@@ -100,23 +115,21 @@ class AxosoftApi
     /**
      * get
      *
-     * @param ApiRequestInterface $apiRequest
-     * @param null                $accessToken
+     * @param ApiRequest $apiRequest
      *
-     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
      */
-    public function get(ApiRequestInterface $apiRequest, $accessToken = null)
+    public function get(ApiRequest $apiRequest)
     {
-        $headers = $this->buildHeaders($apiRequest, $accessToken);
+        $this->prepareRequest($apiRequest);
 
-        $response = $this->httpClient->get(
-            $apiRequest->getUrl(),
+        $data = $this->doRequest(
+            'GET',
+            $apiRequest->getRequestUrl(),
             [
-                'headers' => $headers,
+                'headers' => $apiRequest->getRequestHeaders(),
             ]
         );
-
-        $data = $response->json();
 
         return $apiRequest->getResponse($data);
     }
@@ -124,23 +137,22 @@ class AxosoftApi
     /**
      * post
      *
-     * @param ApiRequestInterface $apiRequest
-     * @param null                $accessToken
+     * @param ApiRequest $apiRequest
      *
-     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
      */
-    public function post(ApiRequestInterface $apiRequest, $accessToken = null)
+    public function post(ApiRequest $apiRequest)
     {
-        $headers = $this->buildHeaders($apiRequest, $accessToken);
-        $response = $this->httpClient->post(
-            $apiRequest->getUrl(),
+        $this->prepareRequest($apiRequest);
+
+        $data = $this->doRequest(
+            'POST',
+            $apiRequest->getRequestUrl(),
             [
-                'headers' => $headers,
-                'body' => $apiRequest->getRequestData()
+                'headers' => $apiRequest->getRequestHeaders(),
+                'body' => json_encode($apiRequest->getRequestData())
             ]
         );
-
-        $data = $response->json();
 
         return $apiRequest->getResponse($data);
     }
@@ -148,56 +160,103 @@ class AxosoftApi
     /**
      * delete
      *
-     * @param ApiRequestInterface $apiRequest
-     * @param null                $accessToken
+     * @param ApiRequest $apiRequest
      *
      * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
-    public function delete(ApiRequestInterface $apiRequest, $accessToken = null)
+    public function delete(ApiRequest $apiRequest)
     {
-        $headers = $this->buildHeaders($apiRequest, $accessToken);
+        $this->prepareRequest($apiRequest);
 
-        $response = $this->httpClient->delete(
-            $apiRequest->getUrl(),
+        $data = $this->doRequest(
+            'DELETE',
+            $apiRequest->getRequestUrl(),
             [
-                'headers' => $headers,
+                'headers' => $apiRequest->getRequestHeaders(),
             ]
         );
-
-        $data = $response->json();
 
         return $apiRequest->getResponse($data);
     }
 
     /**
-     * buildHeaders
+     * doRequest
      *
-     * @param ApiRequestInterface $apiRequest
-     * @param null                $accessToken
+     * @param string $method
+     * @param string $url
+     * @param array  $options
      *
-     * @return array
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|mixed|null
      */
-    protected function buildHeaders(ApiRequestInterface $apiRequest, $accessToken = null)
+    public function doRequest($method, $url, $options)
     {
-        $headers = $apiRequest->getRequestHeaders();
+        $request = $this->httpClient->createRequest($method, $url, $options);
 
-        if($accessToken){
-            $headers['Authorization'] = 'Bearer ' . $accessToken;
+        try {
+            $response = $this->httpClient->send($request);
+            $return = $response->json();
+
+        } catch (\Exception $e) {
+            $return = [
+                'error' => $e->getCode(),
+                'error_description' => $e->getMessage()
+            ];
+
         }
 
-        return $headers;
+        return $return;
+    }
+
+    /**
+     * prepareRequest
+     *
+     * @param ApiRequest $apiRequest
+     *
+     * @return ApiRequest
+     */
+    protected function prepareRequest(ApiRequest $apiRequest)
+    {
+        // @todo this only supports V5 of the Auth header
+        // may not be an issue if it does not change
+        if (!empty($this->accessToken)) {
+            $apiRequest->setRequestHeader(
+                'Authorization',
+                'Bearer ' . $this->accessToken
+            );
+            $apiRequest->setRequestHeader(
+                'X-Authorization',
+                'Bearer ' . $this->accessToken
+            );
+        }
+
+        $apiRequest->setRequestHeader('Content-Type', 'application/json');
+
+        return $apiRequest;
     }
 
     /**
      * getRequestMethod
      *
-     * @param ApiRequestInterface $apiRequest
+     * @param ApiRequest $apiRequest
      *
      * @return string
+     * @throws \Exception
      */
-    protected function getRequestMethod(ApiRequestInterface $apiRequest)
+    protected function getRequestMethod(ApiRequest $apiRequest)
     {
-        return strtolower($apiRequest->getRequestMethod());
+        $methodKey = $apiRequest->getRequestMethod();
+
+        if (empty($methodKey)) {
+            throw new \Exception(
+                'Request Method not defined for ' . get_class($apiRequest)
+            );
+        }
+
+        if (isset($this->methodMap[$methodKey])) {
+            return $this->methodMap[$methodKey];
+        }
+        // default to get
+        return 'get';
     }
 
 }

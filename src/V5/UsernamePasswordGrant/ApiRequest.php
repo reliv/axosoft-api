@@ -24,7 +24,7 @@ class ApiRequest extends AbstractApiRequest
     /**
      * @var string
      */
-    protected $url = '/api/oauth2/token';
+    protected $requestUrl = '/api/oauth2/token';
 
     /**
      * @var string
@@ -36,11 +36,7 @@ class ApiRequest extends AbstractApiRequest
      */
     protected $requestParameters = [
             'grant_type' => 'password',
-            'username' => '',
-            'password' => '',
-            'client_id' => '',
-            'client_secret' => '',
-            'scope' => '',
+            'scope' => 'read',
         ];
 
     /**
@@ -52,7 +48,7 @@ class ApiRequest extends AbstractApiRequest
      */
     public function setUsername($value)
     {
-        $this->requestParameters['username'] = (string) $value;
+        $this->requestParameters['username'] = (string)$value;
     }
 
     /**
@@ -64,7 +60,7 @@ class ApiRequest extends AbstractApiRequest
      */
     public function setPassword($value)
     {
-        $this->requestParameters['password'] = (string) $value;
+        $this->requestParameters['password'] = (string)$value;
     }
 
     /**
@@ -76,7 +72,7 @@ class ApiRequest extends AbstractApiRequest
      */
     public function setClientId($value)
     {
-        $this->requestParameters['client_id'] = (string) $value;
+        $this->requestParameters['client_id'] = (string)$value;
     }
 
     /**
@@ -88,7 +84,7 @@ class ApiRequest extends AbstractApiRequest
      */
     public function setClientSecret($value)
     {
-        $this->requestParameters['client_secret'] = (string) $value;
+        $this->requestParameters['client_secret'] = (string)$value;
     }
 
     /**
@@ -100,7 +96,7 @@ class ApiRequest extends AbstractApiRequest
      */
     public function setScope($value)
     {
-        $this->requestParameters['scope'] = (string) $value;
+        $this->requestParameters['scope'] = (string)$value;
     }
 
     /**
@@ -112,7 +108,7 @@ class ApiRequest extends AbstractApiRequest
      */
     public function getResponse($responseData)
     {
-        if(isset($responseData['error'])){
+        if (isset($responseData['error'])) {
 
             return new ApiError($responseData);
         }
