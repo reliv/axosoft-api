@@ -1,8 +1,8 @@
 <?php
 
-namespace AxosoftApi\Factory;
+namespace Reliv\AxosoftApi\Factory;
 
-use AxosoftApi\Service\AxosoftApi;
+use Reliv\AxosoftApi\Service\AxosoftApi;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace AxosoftApi\Factory;
+namespace Reliv\AxosoftApi\Factory;
 
 use GuzzleHttp\Client;
 use Zend\ServiceManager\FactoryInterface;

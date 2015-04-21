@@ -1,6 +1,6 @@
 <?php
 
-namespace AxosoftApi\Model;
+namespace Reliv\AxosoftApi\Model;
 
 /**
  * Class GenericApiResponse
@@ -10,7 +10,7 @@ namespace AxosoftApi\Model;
  * PHP version 5
  *
  * @category  Reliv
- * @package   AxosoftApi\Model
+ * @package   Reliv\AxosoftApi\Model
  * @author    James Jervis <jjervis@relivinc.com>
  * @copyright 2015 Reliv International
  * @license   License.txt New BSD License

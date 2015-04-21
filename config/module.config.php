@@ -15,20 +15,20 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'AxosoftApi\Service\AxosoftApi'
-            => 'AxosoftApi\Factory\AxosoftApiServiceFactory',
-            'AxosoftApi\Service\HttpClient'
-            => 'AxosoftApi\Factory\GuzzleHttpClientFactory',
-            'AxosoftApi\Grant\ApiRequest'
-            => 'AxosoftApi\Factory\UsernamePasswordGrantFactory',
+            'Reliv\AxosoftApi\Service\AxosoftApi'
+            => 'Reliv\AxosoftApi\Factory\AxosoftApiServiceFactory',
+            'Reliv\AxosoftApi\Service\HttpClient'
+            => 'Reliv\AxosoftApi\Factory\GuzzleHttpClientFactory',
+            'Reliv\AxosoftApi\Grant\ApiRequest'
+            => 'Reliv\AxosoftApi\Factory\UsernamePasswordGrantFactory',
         ],
     ],
 
     'controllers' => [
         'invokables' => [
             // TESTING
-            'AxosoftApi\Controller\IndexController' =>
-                'AxosoftApi\Controller\IndexController',
+            'Reliv\AxosoftApi\Controller\IndexController' =>
+                'Reliv\AxosoftApi\Controller\IndexController',
         ]
     ],
 //    'router' => [
@@ -38,7 +38,7 @@ return [
 //                'options' => [
 //                    'route' => '/axosoft-api',
 //                    'defaults' => [
-//                        'controller' => 'AxosoftApi\Controller\IndexController',
+//                        'controller' => 'Reliv\AxosoftApi\Controller\IndexController',
 //                        'action' => 'index',
 //                    ],
 //                ],

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AxosoftApi\V5\UsernamePasswordGrant;
+namespace Reliv\AxosoftApi\V5\UsernamePasswordGrant;
 
-use AxosoftApi\Model\AbstractApiError;
+use Reliv\AxosoftApi\Model\AbstractApiError;
 
 
 /**
@@ -14,7 +14,7 @@ use AxosoftApi\Model\AbstractApiError;
  * PHP version 5
  *
  * @category  Reliv
- * @package   AxosoftApi\V5\UsernamePasswordGrant
+ * @package   Reliv\AxosoftApi\V5\UsernamePasswordGrant
  * @author    James Jervis <jjervis@relivinc.com>
  * @copyright 2015 Reliv International
  * @license   License.txt New BSD License

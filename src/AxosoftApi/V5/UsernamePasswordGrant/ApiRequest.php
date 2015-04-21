@@ -1,8 +1,8 @@
 <?php
 
-namespace AxosoftApi\V5\UsernamePasswordGrant;
+namespace Reliv\AxosoftApi\V5\UsernamePasswordGrant;
 
-use AxosoftApi\Model\AbstractApiRequest;
+use Reliv\AxosoftApi\Model\AbstractApiRequest;
 
 /**
  * Class ApiRequest
@@ -108,7 +108,7 @@ class ApiRequest extends AbstractApiRequest
      *
      * @param $responseData
      *
-     * @return \AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
     public function getResponse($responseData)
     {

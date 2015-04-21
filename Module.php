@@ -4,7 +4,7 @@
  * Module Config For ZF2
  */
 
-namespace AxosoftApi;
+namespace Reliv\AxosoftApi;
 
 class Module
 {

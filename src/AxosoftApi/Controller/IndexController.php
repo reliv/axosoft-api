@@ -1,6 +1,6 @@
 <?php
 
-namespace AxosoftApi\Controller;
+namespace Reliv\AxosoftApi\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -24,7 +24,7 @@ class IndexController extends AbstractActionController {
 
     public function indexAction()
     {
-        $api = $this->getServiceLocator()->get('AxosoftApi\Service\AxosoftApi');
+        $api = $this->getServiceLocator()->get('Reliv\AxosoftApi\Service\AxosoftApi');
 
         var_dump($api);die;
     }

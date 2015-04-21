@@ -1,8 +1,8 @@
 <?php
 
-namespace AxosoftApi\Factory;
+namespace Reliv\AxosoftApi\Factory;
 
-use AxosoftApi\V5\UsernamePasswordGrant\ApiRequest;
+use Reliv\AxosoftApi\V5\UsernamePasswordGrant\ApiRequest;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

@@ -24,8 +24,8 @@
     "guzzlehttp/guzzle": "~5.0"
   },
   "autoload": {
-    "psr-0": {
-      "AxosoftApi": "src/"
+    "psr-4": {
+      "Reliv\\AxosoftApi": "src/"
     },
     "classmap": [
       "./"

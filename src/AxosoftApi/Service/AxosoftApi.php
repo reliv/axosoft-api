@@ -1,12 +1,12 @@
 <?php
 
-namespace AxosoftApi\Service;
+namespace Reliv\AxosoftApi\Service;
 
-use AxosoftApi\Model\AbstractApiError;
-use AxosoftApi\Model\ApiRequestInterface;
-use AxosoftApi\Model\Connection;
-use AxosoftApi\V5\UsernamePasswordGrant\ApiError;
-use AxosoftApi\V5\UsernamePasswordGrant\ApiResponse;
+use Reliv\AxosoftApi\Model\AbstractApiError;
+use Reliv\AxosoftApi\Model\ApiRequestInterface;
+use Reliv\AxosoftApi\Model\Connection;
+use Reliv\AxosoftApi\V5\UsernamePasswordGrant\ApiError;
+use Reliv\AxosoftApi\V5\UsernamePasswordGrant\ApiResponse;
 use Guzzle\Http\Client;
 
 /**
@@ -103,7 +103,7 @@ class AxosoftApi
      * @param ApiRequestInterface $apiRequest
      * @param null                $accessToken
      *
-     * @return \AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
     public function get(ApiRequestInterface $apiRequest, $accessToken = null)
     {
@@ -127,7 +127,7 @@ class AxosoftApi
      * @param ApiRequestInterface $apiRequest
      * @param null                $accessToken
      *
-     * @return \AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
     public function post(ApiRequestInterface $apiRequest, $accessToken = null)
     {
@@ -151,7 +151,7 @@ class AxosoftApi
      * @param ApiRequestInterface $apiRequest
      * @param null                $accessToken
      *
-     * @return \AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
     public function delete(ApiRequestInterface $apiRequest, $accessToken = null)
     {

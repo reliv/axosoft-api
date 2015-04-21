@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AxosoftApi\Model;
+namespace Reliv\AxosoftApi\Model;
 
 
 /**
@@ -12,7 +12,7 @@ namespace AxosoftApi\Model;
  * PHP version 5
  *
  * @category  Reliv
- * @package   AxosoftApi\Model
+ * @package   Reliv\AxosoftApi\Model
  * @author    James Jervis <jjervis@relivinc.com>
  * @copyright 2015 Reliv International
  * @license   License.txt New BSD License
@@ -90,7 +90,7 @@ class GenericApiRequest extends AbstractApiRequest
      *
      * @param $responseData
      *
-     * @return \AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
     public function getResponse($responseData)
     {
