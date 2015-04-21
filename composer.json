@@ -1,0 +1,34 @@
+{
+  "name": "reliv/axosoft-api",
+  "description": "Module Axosift API wrapper",
+  "type": "library",
+  "license": "BSD",
+  "keywords": [
+    "zf2",
+    "module",
+    "axosoft",
+    "ontime",
+    "api"
+  ],
+  "homepage": "https://github.com/reliv/axosoft-api",
+  "authors": [
+    {
+      "name": "James Jervis",
+      "email": "jjervis@relivinc.com",
+      "homepage": "https://github.com/reliv"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "zendframework/zendframework": "2.*",
+    "guzzlehttp/guzzle": "~5.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "AxosoftApi": "src/"
+    },
+    "classmap": [
+      "./"
+    ]
+  }
+}
