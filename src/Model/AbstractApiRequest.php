@@ -3,6 +3,7 @@
 
 namespace Reliv\AxosoftApi\Model;
 
+use Reliv\AxosoftApi\Exception\AxosoftApiException;
 use Reliv\AxosoftApi\ModelInterface\ApiRequest;
 
 
@@ -53,12 +54,12 @@ abstract class AbstractApiRequest implements ApiRequest
      * getRequestUrl
      *
      * @return string
-     * @throws \Exception
+     * @throws AxosoftApiException
      */
     public function getRequestUrl()
     {
         if (empty($this->requestUrl)) {
-            throw new \Exception('Request Url has not been set for ' . get_class($this));
+            throw new AxosoftApiException('Request Url has not been set for ' . get_class($this));
         }
 
         $url = $this->requestUrl;
@@ -192,11 +193,11 @@ abstract class AbstractApiRequest implements ApiRequest
      * @param $responseData
      *
      * @return AbstractApiResponse
-     * @throws \Exception
+     * @throws AxosoftApiException
      */
     public function getResponse($responseData)
     {
-        throw new \Exception('No response created');
+        throw new AxosoftApiException('No response created');
     }
 
     /**

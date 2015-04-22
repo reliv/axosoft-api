@@ -24,25 +24,31 @@ return [
         ],
     ],
 
+    /* TESTING ONLY *
     'controllers' => [
         'invokables' => [
-            // TESTING
             'Reliv\AxosoftApi\Controller\IndexController' =>
                 'Reliv\AxosoftApi\Controller\IndexController',
         ]
     ],
-//    'router' => [
-//        'routes' => [
-//            'AxosoftApiTest' => [
-//                'type' => 'segment',
-//                'options' => [
-//                    'route' => '/axosoft-api',
-//                    'defaults' => [
-//                        'controller' => 'Reliv\AxosoftApi\Controller\IndexController',
-//                        'action' => 'index',
-//                    ],
-//                ],
-//            ],
-//        ]
-//    ]
+    'view_manager' => [
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ],
+    ],
+    'router' => [
+        'routes' => [
+            'AxosoftApiTest' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/axosoft-api',
+                    'defaults' => [
+                        'controller' => 'Reliv\AxosoftApi\Controller\IndexController',
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+        ]
+    ]
+    /* */
 ];

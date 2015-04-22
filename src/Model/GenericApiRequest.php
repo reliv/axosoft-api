@@ -3,6 +3,8 @@
 
 namespace Reliv\AxosoftApi\Model;
 
+use Reliv\AxosoftApi\Exception\AxosoftApiException;
+
 
 /**
  * Class GenericApiRequest
@@ -110,7 +112,7 @@ class GenericApiRequest extends AbstractApiRequest
      * @param $validator
      *
      * @return void
-     * @throws \Exception
+     * @throws AxosoftApiException
      */
     public function setValidator($validator)
     {
@@ -122,7 +124,7 @@ class GenericApiRequest extends AbstractApiRequest
                 'getMessages'
             )
         ) {
-            throw new \Exception(
+            throw new AxosoftApiException(
                 'Validator must contain "setData", "isValid" and "getMessages" methods'
             );
         }

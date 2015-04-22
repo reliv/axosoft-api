@@ -22,7 +22,6 @@ namespace Reliv\AxosoftApi\ModelInterface;
 
 interface ApiRequest
 {
-
     /**
      * Get Request URL formatted per API request requirements
      *

@@ -4,7 +4,7 @@
 namespace Reliv\AxosoftApi\ModelInterface;
 
 
- /**
+/**
  * Interface ApiAccessResponse
  *
  * ApiAccessResponse
@@ -20,9 +20,8 @@ namespace Reliv\AxosoftApi\ModelInterface;
  * @link      https://github.com/reliv
  */
 
-interface ApiAccessResponse {
-
-
+interface ApiAccessResponse extends ApiResponse
+{
     /**
      * getAccessToken
      *

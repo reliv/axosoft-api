@@ -30,11 +30,16 @@ If you wish to use the API library and an API classe you require is missing, you
     // Get Response
     $response = $axosoftApi->send($request);
     
+    // Handle error
+    if ($axosoftApi->hasError($response)) {
+        throw new /Exception('Call Failed.');
+    }
+    
     $dataArray = $response->getResponseData();
     $someValue = $response->getResponseProperty('somekey');
 ```
 
-## Example of generice list call ##
+## Example of generic list call ##
 
 ```php
     // Get AxosoftApi from ZF2 service manager
@@ -52,6 +57,17 @@ If you wish to use the API library and an API classe you require is missing, you
     // Get Response
     $response = $axosoftApi->send($request);
     
+    // Handle error
+    if ($axosoftApi->hasError($response)) {
+        throw new /Exception('Call Failed.');
+    }
+    
     $dataArray = $response->getResponseData();
     $someValue = $response->getResponseProperty('somekey');
 ```
+
+## ToDo ##
+
+ - Write the rest of the API classes
+ - Create API request validators
+ - May implement command pattern to simplify API calls

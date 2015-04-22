@@ -2,6 +2,8 @@
 
 namespace Reliv\AxosoftApi\Service;
 
+use GuzzleHttp\Exception\RequestException;
+use Reliv\AxosoftApi\Exception\AxosoftApiException;
 use Reliv\AxosoftApi\Model\AbstractApiRequest;
 use Reliv\AxosoftApi\Model\GenericApiRequest;
 use Reliv\AxosoftApi\ModelInterface\ApiAccessResponse;
@@ -57,17 +59,30 @@ class AxosoftApi
      */
     public function __construct($httpClient, $authRequest)
     {
-        $this->httpClient = $httpClient;
+        $this->setHttpClient($httpClient);
         $this->authRequest = $authRequest;
+    }
+
+    /**
+     * setHttpClient
+     *
+     * @param $httpClient
+     *
+     * @return void
+     */
+    public function setHttpClient($httpClient)
+    {
+        $this->httpClient = $httpClient;
     }
 
     /**
      * getAccessToken
      *
+     * @todo Implement Session to hold this if configured
+     *
      * @param bool $refresh
      *
-     * @return null
-     * @throws \Exception
+     * @return null|string
      */
     public function getAccessToken($refresh = false)
     {
@@ -78,7 +93,7 @@ class AxosoftApi
             $response = $this->get($this->authRequest);
 
             if ($response instanceof ApiError) {
-                //throw new \Exception('Authorization failed');
+                //throw new AxosoftApiException('Authorization failed');
                 $this->accessToken = null;
             }
 
@@ -97,7 +112,7 @@ class AxosoftApi
      * @param bool       $refreshAccess
      *
      * @return mixed
-     * @throws \Exception
+     * @throws AxosoftApiException
      */
     public function send(ApiRequest $apiRequest, $refreshAccess = false)
     {
@@ -106,7 +121,7 @@ class AxosoftApi
         $method = $this->getRequestMethod($apiRequest);
 
         if (!method_exists($this, $method)) {
-            throw new \Exception('Method is not supported.');
+            throw new AxosoftApiException('Method is not supported.');
         }
 
         return $this->$method($apiRequest, $accessToken);
@@ -196,15 +211,52 @@ class AxosoftApi
             $response = $this->httpClient->send($request);
             $return = $response->json();
 
-        } catch (\Exception $e) {
-            $return = [
-                'error' => $e->getCode(),
-                'error_description' => $e->getMessage()
-            ];
+        } catch (\Exception $exception) {
+
+            $return = $this->handleHttpClientError($exception);
+        } finally {
 
         }
 
         return $return;
+    }
+
+    /**
+     * hasError - check if a response in and error response
+     *
+     * @param ApiResponse $response
+     *
+     * @return bool
+     */
+    public function hasError(ApiResponse $response)
+    {
+
+        if ($response instanceof ApiError) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * handleHttpClientError
+     *
+     * @param \Exception $exception
+     *
+     * @return mixed
+     */
+    public function handleHttpClientError(\Exception $exception)
+    {
+
+        if($exception instanceof RequestException){
+
+            return $exception->getResponse()->json();
+        }
+
+        return [
+            'error' => $exception->getCode(),
+            'error_description' => $exception->getMessage()
+        ];
     }
 
     /**
@@ -240,14 +292,14 @@ class AxosoftApi
      * @param ApiRequest $apiRequest
      *
      * @return string
-     * @throws \Exception
+     * @throws AxosoftApiException
      */
     protected function getRequestMethod(ApiRequest $apiRequest)
     {
         $methodKey = $apiRequest->getRequestMethod();
 
         if (empty($methodKey)) {
-            throw new \Exception(
+            throw new AxosoftApiException(
                 'Request Method not defined for ' . get_class($apiRequest)
             );
         }
@@ -258,5 +310,4 @@ class AxosoftApi
         // default to get
         return 'get';
     }
-
 }
