@@ -111,7 +111,7 @@ class AxosoftApi
      * @param ApiRequest $apiRequest
      * @param bool       $refreshAccess
      *
-     * @return mixed
+     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
      * @throws AxosoftApiException
      */
     public function send(ApiRequest $apiRequest, $refreshAccess = false)
@@ -177,7 +177,7 @@ class AxosoftApi
      *
      * @param ApiRequest $apiRequest
      *
-     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
+     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
      */
     public function delete(ApiRequest $apiRequest)
     {
@@ -201,7 +201,7 @@ class AxosoftApi
      * @param string $url
      * @param array  $options
      *
-     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|mixed|null
+     * @return array
      */
     public function doRequest($method, $url, $options)
     {

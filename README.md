@@ -32,7 +32,7 @@ If you wish to use the API library and an API classe you require is missing, you
     
     // Handle error
     if ($axosoftApi->hasError($response)) {
-        throw new /Exception('Call Failed.');
+        throw new \Exception('Call Failed.');
     }
     
     $dataArray = $response->getResponseData();
@@ -59,7 +59,7 @@ If you wish to use the API library and an API classe you require is missing, you
     
     // Handle error
     if ($axosoftApi->hasError($response)) {
-        throw new /Exception('Call Failed.');
+        throw new \Exception('Call Failed.');
     }
     
     $dataArray = $response->getResponseData();
