@@ -2,7 +2,6 @@
 
 namespace Reliv\AxosoftApi\V5\Items\Defects;
 
-use Reliv\AxosoftApi\Model\AbstractApiRequest;
 use Reliv\AxosoftApi\V5\ApiCreate\AbstractApiRequestCreate;
 
 /**

@@ -1,18 +1,16 @@
 <?php
 
+namespace Reliv\AxosoftApi\Exception;
 
-namespace Reliv\AxosoftApi\ModelInterface;
-
-
-/**
- * Interface ApiError
+ /**
+ * Class AxosoftApiException
  *
- * ApiError Interface
+ * LongDescHere
  *
  * PHP version 5
  *
  * @category  Reliv
- * @package   Reliv\AxosoftApi\Model
+ * @package   moduleNameHere
  * @author    James Jervis <jjervis@relivinc.com>
  * @copyright 2015 Reliv International
  * @license   License.txt New BSD License
@@ -20,12 +18,6 @@ namespace Reliv\AxosoftApi\ModelInterface;
  * @link      https://github.com/reliv
  */
 
-interface ApiError extends ApiResponse
-{
-    /**
-     * getMessage
-     *
-     * @return string
-     */
-    public function getMessage();
+class AxosoftApiException extends \Exception {
+
 }
