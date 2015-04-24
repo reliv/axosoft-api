@@ -6,8 +6,21 @@
 
 namespace Reliv\AxosoftApi;
 
-class Module
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+
+class Module implements AutoloaderProviderInterface
 {
+    public function getAutoloaderConfig()
+    {
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
+                    __NAMESPACE__ => __DIR__,
+                ],
+            ],
+        ];
+    }
+
     /**
      * getConfig() is a requirement for all Modules in ZF2.  This
      * function is included as part of that standard.  See Docs on ZF2 for more
