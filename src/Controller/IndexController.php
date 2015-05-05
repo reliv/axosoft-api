@@ -35,18 +35,20 @@ class IndexController extends AbstractActionController {
         // Build request
         $request = new GenericApiRequest('/api/v5/projects');
 
-        // Get Response
-        $response = $axosoftApi->send($request);
+        try {
+            // Get Response
+            $response = $axosoftApi->send($request);
+        } catch(\Exception $exception){
+            return ['output' => "Call Failed with exception: \n" . var_export($exception, true)];
+        }
 
         // Handle error
         if ($axosoftApi->hasError($response)) {
-            throw new \Exception('Call Failed.');
+            return ['output' => "Call Failed: \n" . var_export($response, true)];
         }
 
         $dataArray = $response->getResponseData();
 
-        //var_dump($dataArray);
-
-        return [];
+        return ['output' => "Call Success: \n" . var_export($dataArray, true)];
     }
 }
