@@ -24,7 +24,7 @@ return [
         ],
     ],
 
-    /* TESTING ONLY *
+    /* TESTING ONLY */
     'controllers' => [
         'invokables' => [
             'Reliv\AxosoftApi\Controller\IndexController' =>
