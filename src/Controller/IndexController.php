@@ -143,6 +143,6 @@ class IndexController extends AbstractActionController
 
         $dataArray = $response->getResponseData();
 
-        return ['output' => $reqOutput . "Call Success: \n" . var_export($dataArray, true)];
+        return ['output' => $reqOutput . "Call Success: \n" . var_export($dataArray, true) . var_export($this->getConfig(), true)];
     }
 }
