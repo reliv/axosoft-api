@@ -3,6 +3,7 @@
 namespace Reliv\AxosoftApi\Controller;
 
 use Reliv\AxosoftApi\Model\GenericApiRequest;
+use Reliv\AxosoftApi\V5\ApiCreate\AbstractApiRequestCreate;
 use Reliv\AxosoftApi\V5\Items\Defects\ApiRequestCreate;
 use Reliv\AxosoftApi\V5\Items\ApiRequestList;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -24,6 +25,16 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class IndexController extends AbstractActionController
 {
+
+    /**
+     * @var array
+     */
+    protected $itemTypeCreateMap = [
+        'defect' => 'Reliv\AxosoftApi\V5\Items\Defects\ApiRequestCreate',
+        'incident' => 'Reliv\AxosoftApi\V5\Items\Incidents\ApiRequestCreate',
+        'feature' => 'Reliv\AxosoftApi\V5\Items\Features\ApiRequestCreate',
+        'task' => 'Reliv\AxosoftApi\V5\Items\Tasks\ApiRequestCreate',
+    ];
 
     /**
      * getConfig
@@ -58,9 +69,51 @@ class IndexController extends AbstractActionController
      *
      * @return mixed
      */
-    protected function getProjectIdParam($default = null)
+    protected function getProjectIdParam($default = 0)
     {
         return $this->params()->fromQuery('projectId', $default);
+    }
+
+    /**
+     * getMessageParam
+     *
+     * @param string $default
+     *
+     * @return mixed
+     */
+    protected function getMessageParam($default = '')
+    {
+        return $this->params()->fromQuery('msg', $default);
+    }
+
+    /**
+     * getMessageParam
+     *
+     * @param string $default
+     *
+     * @return mixed
+     */
+    protected function getItemType($default = 'defect')
+    {
+        return $this->params()->fromQuery('type', $default);
+    }
+
+    /**
+     * getItemObject
+     *
+     * @return AbstractApiRequestCreate
+     */
+    protected function getItemObject()
+    {
+        $itemClass = $this->itemTypeCreateMap['defect'];
+
+        $itemType = $this->getItemType('defect');
+
+        if(isset($this->itemTypeCreateMap[$itemType])){
+            $itemClass = $this->itemTypeCreateMap[$itemType];
+        }
+
+        return new $itemClass();
     }
 
     /**
@@ -102,11 +155,19 @@ class IndexController extends AbstractActionController
             return $res;
         }
 
-        $request = new ApiRequestCreate();
+        $request = $this->getItemObject();
         $dateTime = new \DateTime();
 
-        $request->setDescription('TEST ISSUE - submited: ' . $dateTime->format(DATE_W3C));
-        $request->setName('TEST ISSUE - submited: ' . $dateTime->format(DATE_W3C));
+        $message = "TEST ISSUE: \n"
+            . $this->getMessageParam('')
+            . " \n"
+            . 'Submited: '
+            . $dateTime->format(DATE_W3C);
+
+        $request->setDescription(
+            $message
+        );
+        $request->setName($message);
         $request->setProject($this->getProjectIdParam(0));
 
         return $this->getOutput($request);
@@ -123,26 +184,36 @@ class IndexController extends AbstractActionController
     {
         $axosoftApi = $this->getApi();
 
-        $reqOutput = "Request: \n" . var_export($request,
-            true);
+        $reqOutput = "Request "
+            . ": \n"
+            . var_export($request, true);
 
         try {
             // Get Response
             $response = $axosoftApi->send($request);
         } catch (\Exception $exception) {
             return [
-                'output' => $reqOutput . "Call Failed with exception: \n" . var_export($exception,
-                        true)
+                'output' => $reqOutput
+                    . "Call Failed with exception: \n"
+                    . var_export($exception, true)
             ];
         }
 
         // Handle error
         if ($axosoftApi->hasError($response)) {
-            return ['output' => $reqOutput . "Call Failed: \n" . var_export($response, true)];
+            return [
+                'output' => $reqOutput
+                . "Call Failed: \n"
+                . var_export($response, true)
+            ];
         }
 
         $dataArray = $response->getResponseData();
 
-        return ['output' => $reqOutput . "Call Success: \n" . var_export($dataArray, true)];
+        return [
+            'output' => $reqOutput
+                . "Call Success: \n"
+                . var_export($dataArray, true)
+        ];
     }
 }
