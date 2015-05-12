@@ -1,10 +1,22 @@
 <?php
 return [
     'Reliv\AxosoftApi' => [
+
+        /**
+         * For testing, should be false in production
+         */
+        'AllowTest' => false,
+
+        /*
+         * Connection settings
+         */
         'Connection' => [
             'base_url' => 'https://mysubdomain.axosoft.com',
         ],
 
+        /**
+         * Connection credentials
+         */
         'UsernamePasswordGrant' => [
             'clientId' => 'my-client_id',
             'clientSecret' => 'my-client-secret',
@@ -38,13 +50,23 @@ return [
     ],
     'router' => [
         'routes' => [
-            'AxosoftApiTest' => [
+            'AxosoftApiReadTest' => [
                 'type' => 'segment',
                 'options' => [
-                    'route' => '/axosoft-api',
+                    'route' => '/axosoft-api/read-test',
                     'defaults' => [
                         'controller' => 'Reliv\AxosoftApi\Controller\IndexController',
-                        'action' => 'index',
+                        'action' => 'readTest',
+                    ],
+                ],
+            ],
+            'AxosoftApiWriteTest' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/axosoft-api/write-test',
+                    'defaults' => [
+                        'controller' => 'Reliv\AxosoftApi\Controller\IndexController',
+                        'action' => 'writeTest',
                     ],
                 ],
             ],
