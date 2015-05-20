@@ -5,7 +5,6 @@ namespace Reliv\AxosoftApi\V5\ApiList;
 
 use Reliv\AxosoftApi\Model\AbstractApiResponse;
 
-
 /**
  * Class ApiResponse
  *

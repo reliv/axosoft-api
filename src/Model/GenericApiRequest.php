@@ -5,7 +5,6 @@ namespace Reliv\AxosoftApi\Model;
 
 use Reliv\AxosoftApi\Exception\AxosoftApiException;
 
-
 /**
  * Class GenericApiRequest
  *
@@ -98,8 +97,7 @@ class GenericApiRequest extends AbstractApiRequest
      */
     public function getResponse($responseData)
     {
-        if(isset($responseData['error'])){
-
+        if (isset($responseData['error'])) {
             return new GenericApiError($responseData);
         }
 

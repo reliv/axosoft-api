@@ -109,7 +109,7 @@ class IndexController extends AbstractActionController
 
         $itemType = $this->getItemType('defect');
 
-        if(isset($this->itemTypeCreateMap[$itemType])){
+        if (isset($this->itemTypeCreateMap[$itemType])) {
             $itemClass = $this->itemTypeCreateMap[$itemType];
         }
 

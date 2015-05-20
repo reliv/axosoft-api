@@ -36,7 +36,6 @@ class ApiRequestCreate extends AbstractApiRequestCreate
     public function getResponse($responseData)
     {
         if (isset($responseData['error'])) {
-
             return new ApiError($responseData);
         }
 

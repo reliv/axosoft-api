@@ -5,7 +5,6 @@ namespace Reliv\AxosoftApi\Model;
 
 use Reliv\AxosoftApi\ModelInterface\ApiError;
 
-
 /**
  * Class AbstractApiError
  *

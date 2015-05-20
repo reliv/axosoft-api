@@ -18,6 +18,7 @@ namespace Reliv\AxosoftApi\Exception;
  * @link      https://github.com/reliv
  */
 
-class AxosoftApiException extends \Exception {
+class AxosoftApiException extends \Exception
+{
 
 }

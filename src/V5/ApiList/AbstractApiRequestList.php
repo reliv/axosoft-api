@@ -284,7 +284,6 @@ abstract class AbstractApiRequestList extends AbstractApiRequest
     public function getResponse($responseData)
     {
         if (isset($responseData['error'])) {
-
             return new GenericApiError($responseData);
         }
 

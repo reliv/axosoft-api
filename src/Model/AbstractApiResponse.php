@@ -60,7 +60,6 @@ abstract class AbstractApiResponse implements ApiResponse
     public function getResponseProperty($name, $default = null)
     {
         if (isset($this->responseData[$name])) {
-
             return $this->responseData[$name];
         }
 

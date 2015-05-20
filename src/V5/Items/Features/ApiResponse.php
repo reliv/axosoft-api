@@ -5,7 +5,6 @@ namespace Reliv\AxosoftApi\V5\Items\Features;
 
 use Reliv\AxosoftApi\Model\GenericApiResponse;
 
-
 /**
  * Class ApiResponse
  *

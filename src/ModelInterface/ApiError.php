@@ -3,7 +3,6 @@
 
 namespace Reliv\AxosoftApi\ModelInterface;
 
-
 /**
  * Interface ApiError
  *
