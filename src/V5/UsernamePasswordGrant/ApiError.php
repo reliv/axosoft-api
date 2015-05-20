@@ -5,7 +5,6 @@ namespace Reliv\AxosoftApi\V5\UsernamePasswordGrant;
 
 use Reliv\AxosoftApi\Model\GenericApiError;
 
-
 /**
  * Class ApiError
  *

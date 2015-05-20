@@ -40,8 +40,7 @@ class ApiRequestList extends AbstractApiRequestList
      */
     public function getResponse($responseData)
     {
-        if(isset($responseData['error'])){
-
+        if (isset($responseData['error'])) {
             return new ApiError($responseData);
         }
 

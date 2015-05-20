@@ -5,7 +5,6 @@ namespace Reliv\AxosoftApi\V5\Items;
 
 use Reliv\AxosoftApi\Model\GenericApiError;
 
-
 /**
  * Class ApiError
  *

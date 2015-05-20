@@ -3,7 +3,6 @@
 
 namespace Reliv\AxosoftApi\ModelInterface;
 
-
 /**
  * Class ApiResponse
  *
@@ -47,5 +46,4 @@ interface ApiResponse
      * @return mixed
      */
     public function getResponseProperty($name, $default = null);
-
 }

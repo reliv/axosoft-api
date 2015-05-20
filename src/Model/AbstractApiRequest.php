@@ -6,7 +6,6 @@ namespace Reliv\AxosoftApi\Model;
 use Reliv\AxosoftApi\Exception\AxosoftApiException;
 use Reliv\AxosoftApi\ModelInterface\ApiRequest;
 
-
 /**
  * Abstract Class AbstractApiRequest
  *
@@ -64,7 +63,7 @@ abstract class AbstractApiRequest implements ApiRequest
 
         $url = $this->requestUrl;
 
-        if(!empty($this->requestParameters)){
+        if (!empty($this->requestParameters)) {
             $url = $url . '?' . $this->buildQueryString();
         }
 
@@ -104,7 +103,6 @@ abstract class AbstractApiRequest implements ApiRequest
     public function getRequestProperty($name, $default = null)
     {
         if ($this->requestData[$name]) {
-
             return $this->requestData[$name];
         }
 
@@ -146,7 +144,6 @@ abstract class AbstractApiRequest implements ApiRequest
     public function getParameter($name, $default = null)
     {
         if ($this->requestParameters[$name]) {
-
             return $this->requestParameters[$name];
         }
 

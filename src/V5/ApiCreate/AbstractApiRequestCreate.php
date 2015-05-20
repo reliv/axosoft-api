@@ -504,7 +504,6 @@ abstract class AbstractApiRequestCreate extends AbstractApiRequest
     public function getResponse($responseData)
     {
         if (isset($responseData['error'])) {
-
             return new ApiError($responseData);
         }
 

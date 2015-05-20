@@ -87,7 +87,6 @@ class AxosoftApi
     public function getAccessToken($refresh = false)
     {
         if (empty($this->accessToken) || $refresh) {
-
             $this->accessToken = null;
 
             $response = $this->get($this->authRequest);
@@ -210,12 +209,8 @@ class AxosoftApi
         try {
             $response = $this->httpClient->send($request);
             $return = $response->json();
-
         } catch (\Exception $exception) {
-
             $return = $this->handleHttpClientError($exception);
-        } finally {
-
         }
 
         return $return;
@@ -230,7 +225,6 @@ class AxosoftApi
      */
     public function hasError(ApiResponse $response)
     {
-
         if ($response instanceof ApiError) {
             return true;
         }
@@ -248,8 +242,7 @@ class AxosoftApi
     public function handleHttpClientError(\Exception $exception)
     {
 
-        if($exception instanceof RequestException){
-
+        if ($exception instanceof RequestException) {
             return $exception->getResponse()->json();
         }
 
