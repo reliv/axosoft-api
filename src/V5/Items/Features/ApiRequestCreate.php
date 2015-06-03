@@ -2,6 +2,8 @@
 
 namespace Reliv\AxosoftApi\V5\Items\Features;
 
+use Reliv\AxosoftApi\Model\GenericApiError;
+use Reliv\AxosoftApi\Model\GenericApiResponse;
 use Reliv\AxosoftApi\V5\ApiCreate\AbstractApiRequestCreate;
 
 /**
@@ -36,9 +38,9 @@ class ApiRequestCreate extends AbstractApiRequestCreate
     public function getResponse($responseData)
     {
         if (isset($responseData['error'])) {
-            return new ApiError($responseData);
+            return new GenericApiError($responseData);
         }
 
-        return new ApiResponse($responseData);
+        return new GenericApiResponse($responseData);
     }
 }

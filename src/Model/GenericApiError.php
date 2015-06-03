@@ -23,7 +23,7 @@ class GenericApiError extends AbstractApiError
 {
 
     /**
-     * @param $responseData
+     * @param array $responseData
      */
     public function __construct($responseData)
     {
@@ -33,7 +33,7 @@ class GenericApiError extends AbstractApiError
     /**
      * getError
      *
-     * @return null
+     * @return mixed
      */
     public function getError()
     {
@@ -43,7 +43,7 @@ class GenericApiError extends AbstractApiError
     /**
      * getDescription
      *
-     * @return null
+     * @return string | null
      */
     public function getDescription()
     {
@@ -57,6 +57,6 @@ class GenericApiError extends AbstractApiError
      */
     public function getMessage()
     {
-        return $this->getResponseProperty('error_description', "An error has occured");
+        return $this->getResponseProperty('error_description', parent::getMessage());
     }
 }

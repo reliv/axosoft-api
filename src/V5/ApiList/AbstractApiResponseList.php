@@ -6,9 +6,7 @@ namespace Reliv\AxosoftApi\V5\ApiList;
 use Reliv\AxosoftApi\Model\AbstractApiResponse;
 
 /**
- * Class ApiResponse
- *
- * LongDescHere
+ * Class ApiResponseList
  *
  * PHP version 5
  *
@@ -20,7 +18,7 @@ use Reliv\AxosoftApi\Model\AbstractApiResponse;
  * @version   Release: <package_version>
  * @link      https://github.com/reliv
  */
-class ApiResponse extends AbstractApiResponse
+abstract class AbstractApiResponseList extends AbstractApiResponse
 {
     /**
      * @param $responseData

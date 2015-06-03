@@ -3,7 +3,7 @@
 
 namespace Reliv\AxosoftApi\Model;
 
-use Reliv\AxosoftApi\Exception\AxosoftApiException;
+use Reliv\AxosoftApi\Validator\Validator;
 
 /**
  * Class GenericApiRequest
@@ -63,32 +63,6 @@ class GenericApiRequest extends AbstractApiRequest
     }
 
     /**
-     * setRequestDataProperty
-     *
-     * @param $name
-     * @param $value
-     *
-     * @return void
-     */
-    public function setRequestDataProperty($name, $value)
-    {
-        $this->requestData[$name] = $value;
-    }
-
-    /**
-     * setRequestParameter
-     *
-     * @param $name
-     * @param $value
-     *
-     * @return void
-     */
-    public function setRequestParameter($name, $value)
-    {
-        $this->requestParameters[$name] = $value;
-    }
-
-    /**
      * getResponse
      *
      * @param $responseData
@@ -110,30 +84,16 @@ class GenericApiRequest extends AbstractApiRequest
      * @param $validator
      *
      * @return void
-     * @throws AxosoftApiException
      */
-    public function setValidator($validator)
+    public function setValidator(Validator $validator)
     {
-        // this implies an interface like ZF2s input filter
-        // Is here to prevent a ZF2 dependency, but still support ZF2's inputFilter
-        if (!method_exists($validator, 'isValid')
-            || !method_exists(
-                $validator,
-                'getMessages'
-            )
-        ) {
-            throw new AxosoftApiException(
-                'Validator must contain "setData", "isValid" and "getMessages" methods'
-            );
-        }
-
         $this->validator = $validator;
     }
 
     /**
      * getValidator
      *
-     * @return null|object
+     * @return null|Validator
      */
     public function getValidator()
     {
@@ -147,11 +107,13 @@ class GenericApiRequest extends AbstractApiRequest
      */
     public function isValid()
     {
-        if (!empty($this->validator)) {
-            $this->validator->setData($this->parameters);
-            return $this->validator->isValid();
+        $validator = $this->getValidator();
+
+        if (!empty($validator)) {
+            $validator->setData($this->getRequestParameters());
+            return $validator->isValid();
         }
 
-        return true;
+        return parent::isValid();
     }
 }

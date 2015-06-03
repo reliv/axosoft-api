@@ -4,7 +4,6 @@
 namespace Reliv\AxosoftApi\Model;
 
 use Reliv\AxosoftApi\Exception\AxosoftApiException;
-use Reliv\AxosoftApi\ModelInterface\ApiRequest;
 
 /**
  * Abstract Class AbstractApiRequest
@@ -93,6 +92,19 @@ abstract class AbstractApiRequest implements ApiRequest
     }
 
     /**
+     * setRequestDataProperty
+     *
+     * @param $name
+     * @param $value
+     *
+     * @return void
+     */
+    public function setRequestDataProperty($name, $value)
+    {
+        $this->requestData[$name] = $value;
+    }
+
+    /**
      * getRequestDataProperty
      *
      * @param      $name
@@ -102,25 +114,11 @@ abstract class AbstractApiRequest implements ApiRequest
      */
     public function getRequestProperty($name, $default = null)
     {
-        if ($this->requestData[$name]) {
+        if (isset($this->requestData[$name])) {
             return $this->requestData[$name];
         }
 
         return $default;
-    }
-
-    /**
-     * getRequestParameter
-     *
-     * @param string $name
-     * @param string $value
-     *
-     * @return mixed
-     */
-    public function setRequestParameter($name, $value)
-    {
-        $name = (string) $name;
-        $this->requestParameters[$name] = (string) $value;
     }
 
     /**
@@ -134,16 +132,30 @@ abstract class AbstractApiRequest implements ApiRequest
     }
 
     /**
-     * getParameter
+     * setRequestParameter
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function setRequestParameter($name, $value)
+    {
+        $name = (string) $name;
+        $this->requestParameters[$name] = (string) $value;
+    }
+
+    /**
+     * getRequestParameter
      *
      * @param      $name
      * @param null $default
      *
      * @return null
      */
-    public function getParameter($name, $default = null)
+    public function getRequestParameter($name, $default = null)
     {
-        if ($this->requestParameters[$name]) {
+        if (isset($this->requestParameters[$name])) {
             return $this->requestParameters[$name];
         }
 
@@ -192,10 +204,7 @@ abstract class AbstractApiRequest implements ApiRequest
      * @return AbstractApiResponse
      * @throws AxosoftApiException
      */
-    public function getResponse($responseData)
-    {
-        throw new AxosoftApiException('No response created');
-    }
+    abstract public function getResponse($responseData);
 
     /**
      * isValid

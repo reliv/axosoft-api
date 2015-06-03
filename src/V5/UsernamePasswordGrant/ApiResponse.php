@@ -4,7 +4,7 @@
 namespace Reliv\AxosoftApi\V5\UsernamePasswordGrant;
 
 use Reliv\AxosoftApi\Model\AbstractApiResponse;
-use Reliv\AxosoftApi\ModelInterface\ApiAccessResponse;
+use Reliv\AxosoftApi\Model\ApiAccessResponse;
 
 /**
  * Class ApiResponse

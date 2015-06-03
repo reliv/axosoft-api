@@ -273,20 +273,4 @@ abstract class AbstractApiRequestList extends AbstractApiRequest
     {
         $this->requestParameters['columns'] = (string)$value;
     }
-
-    /**
-     * getResponse
-     *
-     * @param $responseData
-     *
-     * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
-     */
-    public function getResponse($responseData)
-    {
-        if (isset($responseData['error'])) {
-            return new GenericApiError($responseData);
-        }
-
-        return new ApiResponse($responseData);
-    }
 }
