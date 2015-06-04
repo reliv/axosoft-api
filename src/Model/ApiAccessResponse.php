@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Reliv\AxosoftApi\ModelInterface;
+namespace Reliv\AxosoftApi\Model;
 
 /**
- * Interface ApiError
+ * Interface ApiAccessResponse
  *
- * ApiError Interface
+ * ApiAccessResponse
  *
  * PHP version 5
  *
@@ -19,12 +19,19 @@ namespace Reliv\AxosoftApi\ModelInterface;
  * @link      https://github.com/reliv
  */
 
-interface ApiError extends ApiResponse
+interface ApiAccessResponse extends ApiResponse
 {
     /**
-     * getMessage
+     * getAccessToken
      *
-     * @return string
+     * @return null|string
      */
-    public function getMessage();
+    public function getAccessToken();
+
+    /**
+     * getTokenType
+     *
+     * @return null|string
+     */
+    public function getTokenType();
 }

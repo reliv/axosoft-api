@@ -501,12 +501,12 @@ abstract class AbstractApiRequestCreate extends AbstractApiRequest
      *
      * @return \Reliv\AxosoftApi\Model\AbstractApiResponse
      */
-    public function getResponse($responseData)
-    {
-        if (isset($responseData['error'])) {
-            return new ApiError($responseData);
-        }
-
-        return new ApiResponse($responseData);
-    }
+//    public function getResponse($responseData)
+//    {
+//        if (isset($responseData['error'])) {
+//            return new ApiError($responseData);
+//        }
+//
+//        return new ApiResponse($responseData);
+//    }
 }

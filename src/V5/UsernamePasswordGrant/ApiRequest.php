@@ -3,6 +3,7 @@
 namespace Reliv\AxosoftApi\V5\UsernamePasswordGrant;
 
 use Reliv\AxosoftApi\Model\AbstractApiRequest;
+use Reliv\AxosoftApi\Model\GenericApiError;
 
 /**
  * Class ApiRequest
@@ -109,7 +110,7 @@ class ApiRequest extends AbstractApiRequest
     public function getResponse($responseData)
     {
         if (isset($responseData['error'])) {
-            return new ApiError($responseData);
+            return new GenericApiError($responseData);
         }
 
         return new ApiResponse($responseData);

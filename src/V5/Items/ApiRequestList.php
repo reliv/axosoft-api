@@ -2,6 +2,7 @@
 
 namespace Reliv\AxosoftApi\V5\Items;
 
+use Reliv\AxosoftApi\Model\GenericApiError;
 use Reliv\AxosoftApi\V5\ApiList\AbstractApiRequestList;
 
 /**
@@ -41,9 +42,9 @@ class ApiRequestList extends AbstractApiRequestList
     public function getResponse($responseData)
     {
         if (isset($responseData['error'])) {
-            return new ApiError($responseData);
+            return new GenericApiError($responseData);
         }
 
-        return new ApiResponse($responseData);
+        return new ApiResponseList($responseData);
     }
 }

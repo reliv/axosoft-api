@@ -4,12 +4,10 @@ namespace Reliv\AxosoftApi\Service;
 
 use GuzzleHttp\Exception\RequestException;
 use Reliv\AxosoftApi\Exception\AxosoftApiException;
-use Reliv\AxosoftApi\Model\AbstractApiRequest;
-use Reliv\AxosoftApi\Model\GenericApiRequest;
-use Reliv\AxosoftApi\ModelInterface\ApiAccessResponse;
-use Reliv\AxosoftApi\ModelInterface\ApiError;
-use Reliv\AxosoftApi\ModelInterface\ApiRequest;
-use Reliv\AxosoftApi\ModelInterface\ApiResponse;
+use Reliv\AxosoftApi\Model\ApiAccessResponse;
+use Reliv\AxosoftApi\Model\ApiError;
+use Reliv\AxosoftApi\Model\ApiRequest;
+use Reliv\AxosoftApi\Model\ApiResponse;
 
 /**
  * Class AxosoftApi
@@ -29,7 +27,7 @@ use Reliv\AxosoftApi\ModelInterface\ApiResponse;
 class AxosoftApi
 {
     /**
-     * @var \Reliv\AxosoftApi\ModelInterface\ApiRequest
+     * @var \Reliv\AxosoftApi\Model\ApiRequest
      */
     protected $authRequest;
 
@@ -78,7 +76,7 @@ class AxosoftApi
     /**
      * getAccessToken
      *
-     * @todo Implement Session to hold this if configured
+     * @todo Implement local storage to hold this if configured
      *
      * @param bool $refresh
      *
@@ -110,7 +108,7 @@ class AxosoftApi
      * @param ApiRequest $apiRequest
      * @param bool       $refreshAccess
      *
-     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
+     * @return \Reliv\AxosoftApi\Model\ApiResponse
      * @throws AxosoftApiException
      */
     public function send(ApiRequest $apiRequest, $refreshAccess = false)
@@ -118,10 +116,6 @@ class AxosoftApi
         $accessToken = $this->getAccessToken($refreshAccess);
 
         $method = $this->getRequestMethod($apiRequest);
-
-        if (!method_exists($this, $method)) {
-            throw new AxosoftApiException('Method is not supported.');
-        }
 
         return $this->$method($apiRequest, $accessToken);
     }
@@ -131,7 +125,7 @@ class AxosoftApi
      *
      * @param ApiRequest $apiRequest
      *
-     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
+     * @return \Reliv\AxosoftApi\Model\ApiResponse
      */
     public function get(ApiRequest $apiRequest)
     {
@@ -153,7 +147,7 @@ class AxosoftApi
      *
      * @param ApiRequest $apiRequest
      *
-     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
+     * @return \Reliv\AxosoftApi\Model\ApiResponse
      */
     public function post(ApiRequest $apiRequest)
     {
@@ -176,7 +170,7 @@ class AxosoftApi
      *
      * @param ApiRequest $apiRequest
      *
-     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
+     * @return \Reliv\AxosoftApi\Model\ApiResponse
      */
     public function delete(ApiRequest $apiRequest)
     {
@@ -225,11 +219,7 @@ class AxosoftApi
      */
     public function hasError(ApiResponse $response)
     {
-        if ($response instanceof ApiError) {
-            return true;
-        }
-
-        return false;
+        return ($response instanceof ApiError);
     }
 
     /**
@@ -300,7 +290,7 @@ class AxosoftApi
         if (isset($this->methodMap[$methodKey])) {
             return $this->methodMap[$methodKey];
         }
-        // default to get
-        return 'get';
+
+        throw new AxosoftApiException('Method is not supported.');
     }
 }

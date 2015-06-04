@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Reliv\AxosoftApi\ModelInterface;
+namespace Reliv\AxosoftApi\Model;
 
 /**
  * Interface ApiRequest
@@ -81,7 +81,7 @@ interface ApiRequest
      *
      * @param $responseData
      *
-     * @return \Reliv\AxosoftApi\ModelInterface\ApiResponse
+     * @return \Reliv\AxosoftApi\Model\ApiResponse
      */
     public function getResponse($responseData);
 

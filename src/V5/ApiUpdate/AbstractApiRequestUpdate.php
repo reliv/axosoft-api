@@ -19,7 +19,7 @@ use Reliv\AxosoftApi\V5\ApiCreate\AbstractApiRequestCreate;
  * @version   Release: <package_version>
  * @link      https://github.com/reliv
  */
-class AbstractApiRequestUpdate extends AbstractApiRequestCreate
+abstract class AbstractApiRequestUpdate extends AbstractApiRequestCreate
 {
     /**
      * @var string

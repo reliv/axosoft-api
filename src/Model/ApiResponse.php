@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Reliv\AxosoftApi\ModelInterface;
+namespace Reliv\AxosoftApi\Model;
 
 /**
  * Class ApiResponse
@@ -11,7 +11,7 @@ namespace Reliv\AxosoftApi\ModelInterface;
  * PHP version 5
  *
  * @category  Reliv
- * @package   Reliv\AxosoftApi\ModelInterface
+ * @package   Reliv\AxosoftApi\Model
  * @author    James Jervis <jjervis@relivinc.com>
  * @copyright 2015 Reliv International
  * @license   License.txt New BSD License

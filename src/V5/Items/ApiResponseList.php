@@ -1,25 +1,24 @@
 <?php
 
 
-namespace Reliv\AxosoftApi\V5\Items\Features;
+namespace Reliv\AxosoftApi\V5\Items;
 
-use Reliv\AxosoftApi\Model\GenericApiError;
+use \Reliv\AxosoftApi\V5\ApiList\AbstractApiResponseList;
 
 /**
- * Class ApiError
- *
- * ApiError
+ * Class AbstractApiResponseList
  *
  * PHP version 5
  *
  * @category  Reliv
- * @package   Reliv\AxosoftApi\V5\UsernamePasswordGrant
+ * @package   Reliv\AxosoftApi\V5\Items
  * @author    James Jervis <jjervis@relivinc.com>
  * @copyright 2015 Reliv International
  * @license   License.txt New BSD License
  * @version   Release: <package_version>
  * @link      https://github.com/reliv
  */
-class ApiError extends GenericApiError
+class ApiResponseList extends AbstractApiResponseList
 {
+
 }

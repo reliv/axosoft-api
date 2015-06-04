@@ -2,8 +2,6 @@
 
 namespace Reliv\AxosoftApi\Model;
 
-use Reliv\AxosoftApi\ModelInterface\ApiResponse;
-
 /**
  * Class AbstractApiResponse
  *
