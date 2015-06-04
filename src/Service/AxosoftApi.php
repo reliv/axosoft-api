@@ -4,8 +4,6 @@ namespace Reliv\AxosoftApi\Service;
 
 use GuzzleHttp\Exception\RequestException;
 use Reliv\AxosoftApi\Exception\AxosoftApiException;
-use Reliv\AxosoftApi\Model\AbstractApiRequest;
-use Reliv\AxosoftApi\Model\GenericApiRequest;
 use Reliv\AxosoftApi\Model\ApiAccessResponse;
 use Reliv\AxosoftApi\Model\ApiError;
 use Reliv\AxosoftApi\Model\ApiRequest;
@@ -78,7 +76,7 @@ class AxosoftApi
     /**
      * getAccessToken
      *
-     * @todo Implement Session to hold this if configured
+     * @todo Implement local storage to hold this if configured
      *
      * @param bool $refresh
      *
@@ -118,10 +116,6 @@ class AxosoftApi
         $accessToken = $this->getAccessToken($refreshAccess);
 
         $method = $this->getRequestMethod($apiRequest);
-
-        if (!method_exists($this, $method)) {
-            throw new AxosoftApiException('Method is not supported.');
-        }
 
         return $this->$method($apiRequest, $accessToken);
     }
@@ -225,11 +219,7 @@ class AxosoftApi
      */
     public function hasError(ApiResponse $response)
     {
-        if ($response instanceof ApiError) {
-            return true;
-        }
-
-        return false;
+        return ($response instanceof ApiError);
     }
 
     /**
@@ -300,7 +290,7 @@ class AxosoftApi
         if (isset($this->methodMap[$methodKey])) {
             return $this->methodMap[$methodKey];
         }
-        // default to get
-        return 'get';
+
+        throw new AxosoftApiException('Method is not supported.');
     }
 }
