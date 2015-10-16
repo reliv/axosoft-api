@@ -1,5 +1,5 @@
 {
-  "name": "reliv/axosoft-api",
+  "name": "rcm/axosoft-api",
   "description": "Module Axosift API wrapper",
   "type": "library",
   "license": "BSD",
