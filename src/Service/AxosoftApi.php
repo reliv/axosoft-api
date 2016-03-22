@@ -236,6 +236,7 @@ class AxosoftApi
         if ($exception instanceof RequestException) {
             $error = $exception->getHandlerContext();
             $error['error_description'] = $exception->getMessage();
+
             return $error;
         }
 
