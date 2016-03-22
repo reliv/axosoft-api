@@ -2,6 +2,7 @@
 
 namespace Reliv\AxosoftApi\Service;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Reliv\AxosoftApi\Exception\AxosoftApiException;
 use Reliv\AxosoftApi\Model\ApiAccessResponse;
@@ -27,12 +28,12 @@ use Reliv\AxosoftApi\Model\ApiResponse;
 class AxosoftApi
 {
     /**
-     * @var \Reliv\AxosoftApi\Model\ApiRequest
+     * @var ApiRequest
      */
     protected $authRequest;
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var Client
      */
     protected $httpClient;
 
@@ -52,8 +53,8 @@ class AxosoftApi
         ];
 
     /**
-     * @param $httpClient
-     * @param $authRequest
+     * @param Client     $httpClient
+     * @param ApiRequest $authRequest
      */
     public function __construct($httpClient, $authRequest)
     {
@@ -64,7 +65,7 @@ class AxosoftApi
     /**
      * setHttpClient
      *
-     * @param $httpClient
+     * @param Client $httpClient
      *
      * @return void
      */
@@ -198,11 +199,12 @@ class AxosoftApi
      */
     public function doRequest($method, $url, $options)
     {
-        $request = $this->httpClient->createRequest($method, $url, $options);
-
         try {
-            $response = $this->httpClient->send($request);
-            $return = $response->json();
+            $response = $this->httpClient->request($method, $url, $options);
+            $contents = $response->getBody()->getContents();
+            // $statusCode = $response->getStatusCode();
+            // $headers = $response->getHeaders();
+            $return = json_decode($contents, true);
         } catch (\Exception $exception) {
             $return = $this->handleHttpClientError($exception);
         }
@@ -231,9 +233,11 @@ class AxosoftApi
      */
     public function handleHttpClientError(\Exception $exception)
     {
-
         if ($exception instanceof RequestException) {
-            return $exception->getResponse()->json();
+            $error = $exception->getHandlerContext();
+            $error['error_description'] = $exception->getMessage();
+
+            return $error;
         }
 
         return [

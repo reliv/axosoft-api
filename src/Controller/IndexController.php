@@ -6,6 +6,7 @@ use Reliv\AxosoftApi\Model\GenericApiRequest;
 use Reliv\AxosoftApi\V5\ApiCreate\AbstractApiRequestCreate;
 use Reliv\AxosoftApi\V5\Items\Defects\ApiRequestCreate;
 use Reliv\AxosoftApi\V5\Items\ApiRequestList;
+use Reliv\RcmAxosoft\Exception\AxosoftLoggerException;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -53,11 +54,10 @@ class IndexController extends AbstractActionController
     /**
      * getApi
      *
-     * @return array|object
+     * @return \Reliv\AxosoftApi\Service\AxosoftApi
      */
     public function getApi()
     {
-
         return $this->getServiceLocator()
             ->get('Reliv\AxosoftApi\Service\AxosoftApi');
     }

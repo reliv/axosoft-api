@@ -11,7 +11,7 @@ return [
          * Connection settings
          */
         'Connection' => [
-            'base_url' => 'https://mysubdomain.axosoft.com',
+            'base_uri' => 'https://mysubdomain.axosoft.com',
         ],
 
         /**

@@ -48,22 +48,37 @@ class AxosoftApiTest extends \PHPUnit_Framework_TestCase
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
     public function getMockHttpResponse(
-        $httpData
-        = [
+        $httpData = [
             'error' => 1,
             'error_description' => 'TESTERR'
         ]
     ) {
+        $httpBody = json_encode($httpData);
+
+
+
+        $mockResponseBody = $this->getMockBuilder(
+            '\GuzzleHttp\Psr7\Stream'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mockResponseBody->expects($this->any())
+            ->method('getContents')
+            ->will(
+                $this->returnValue($httpBody)
+            );
+
         $mockResponse = $this->getMockBuilder(
-            '\GuzzleHttp\Message\ResponseInterface'
+            '\GuzzleHttp\Psr7\Response'
         )
             ->disableOriginalConstructor()
             ->getMock();
 
         $mockResponse->expects($this->any())
-            ->method('json')
+            ->method('getBody')
             ->will(
-                $this->returnValue($httpData)
+                $this->returnValue($mockResponseBody)
             );
 
         return $mockResponse;
@@ -115,15 +130,8 @@ class AxosoftApiTest extends \PHPUnit_Framework_TestCase
         )
             ->disableOriginalConstructor()
             ->getMock();
-
         $mockHttpClient->expects($this->any())
-            ->method('createRequest')
-            ->will(
-                $this->returnValue($mockRequest)
-            );
-
-        $mockHttpClient->expects($this->any())
-            ->method('send')
+            ->method('request')
             ->will(
                 $this->returnCallback($sendCallback)
             );

@@ -28,14 +28,21 @@ class GuzzleHttpClientFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return Config
+     * @return Client
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $configRoot = $serviceLocator->get('Config');
 
+        $connectionConfig = $configRoot['Reliv\AxosoftApi']['Connection'];
+
+        // @bc
+        if (!array_key_exists('base_uri', $connectionConfig)) {
+            $connectionConfig['base_uri'] = $connectionConfig['base_url'];
+        }
+
         return new Client(
-            $configRoot['Reliv\AxosoftApi']['Connection']
+            $connectionConfig
         );
     }
 }
