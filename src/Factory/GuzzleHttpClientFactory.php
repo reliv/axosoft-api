@@ -37,7 +37,7 @@ class GuzzleHttpClientFactory implements FactoryInterface
         $connectionConfig = $configRoot['Reliv\AxosoftApi']['Connection'];
 
         // @bc
-        if (!array_key_exists('base_uri', $connectionConfig)) {
+        if (empty($connectionConfig['base_uri'])) {
             $connectionConfig['base_uri'] = $connectionConfig['base_url'];
         }
 
