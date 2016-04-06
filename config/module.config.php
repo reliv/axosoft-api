@@ -64,6 +64,7 @@ return [
             'AxosoftApiWriteTest' => [
                 'type' => 'segment',
                 'options' => [
+                    // Params: ?type=defect&projectId=3&msg=TestMessage
                     'route' => '/axosoft-api/write-test',
                     'defaults' => [
                         'controller' => 'Reliv\AxosoftApi\Controller\IndexController',
