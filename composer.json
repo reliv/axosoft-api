@@ -2,7 +2,7 @@
   "name": "reliv/axosoft-api",
   "description": "Module Axosift API wrapper",
   "type": "library",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "keywords": [
     "zf2",
     "module",
