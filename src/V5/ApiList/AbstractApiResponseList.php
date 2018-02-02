@@ -36,7 +36,6 @@ abstract class AbstractApiResponseList extends AbstractApiResponse
     public function getData()
     {
         return $this->responseData['data'];
-
     }
 
     /**
